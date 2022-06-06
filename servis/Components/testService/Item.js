@@ -1,27 +1,25 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-const Item = ({item, content, papaFunc}) => {
-    const [bool, setBool] = useState(false)
-    const click = () => {
-        // console.log(content)
-        console.log(bool)
-        papaFunc(content)
-        console.log(bool)
-    }
+const Item = ({ item, activeId, papaFunc }) => {
+  const [bool] = useState(false);
+  const click = () => {
+    papaFunc({
+      id: item.id,
+      content: item.content,
+    });
+  };
 
-    const clicker = () => {
-        setBool(!bool)
-    }
+  return (
+    <button
+      className={`border-t-4 border py-4 w-full lg:px-2 flex justify-center ${
+        activeId === item.id ? "border-t-amber-900 bg-amber-700" : ""
+      }`}
+    >
+      <h2 onClick={click} className={bool ? "text-red-700" : "text-white"}>
+        {item.name}
+      </h2>
+    </button>
+  );
+};
 
-    return(
-        <button className='border-t-4 border py-4 w-full lg:px-2 flex justify-center focus:border-t-amber-900 focus:bg-amber-700 ;'>
-            <h2
-                onClick={() => (click(content))}
-                className={bool ? 'text-red-700' : 'text-white'}>
-                {item.name}
-            </h2>
-        </button>
-    )
-}
-
-export default Item
+export default Item;
